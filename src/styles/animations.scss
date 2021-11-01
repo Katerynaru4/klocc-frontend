@@ -1,0 +1,33 @@
+.single-cat-trace {
+  animation: trace 2s ease-in forwards;
+  position: absolute;
+  font-size: 20px;
+  transform-origin: center;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+}
+.paw-image {
+  width: 100%;
+  height: 100%;
+}
+@keyframes trace {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animation-container {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  overflow: hidden;
+  height: 500px;
+  width: 300px;
+}
