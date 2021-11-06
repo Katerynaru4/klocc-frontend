@@ -2,16 +2,22 @@ import React from 'react';
 import paw from './paw.png';
 
 const genarateTraces = (initX, initY, circleAngle, initTraceDirection) => {
-  let traceCoordinates = [];
-  let initDelay = 1;
-  let width = 250;
-  let height = 150;
-  let deltaDelay = 0.5;
+  const traceCoordinates = [];
+  const initDelay = 1;
+  const width = 250;
+  const height = 150;
+  const deltaDelay = 0.5;
   let deltaAngle = -10;
 
-  for (let i = 0; i < 10; i++) {
-    let direction = initTraceDirection + deltaAngle * i;
-    let radAngle = (circleAngle + deltaAngle * i) * (Math.PI / 180);
+  if (window.screen.width < 900) {
+    deltaAngle = -5;
+  }
+  if (window.screen.width < 500) {
+    deltaAngle = -3;
+  }
+  for (let i = 0; i < 20; i++) {
+    const direction = initTraceDirection + deltaAngle * i;
+    const radAngle = (circleAngle + deltaAngle * i) * (Math.PI / 180);
     let x = initX - width * Math.sin(radAngle);
     let y = initY - height * Math.cos(radAngle);
 
@@ -32,9 +38,17 @@ const genarateTraces = (initX, initY, circleAngle, initTraceDirection) => {
 
 const CatTraceAnimation = () => {
   let x = -50;
-  let y = -30;
-  let circleAngle = 280;
-  let initTraceDirection = 180;
+  if (window.screen.width < 1200) {
+    x = -100;
+  }
+
+  const y = -30;
+  const circleAngle = 280;
+  const initTraceDirection = 180;
+
+  if (window.screen.width < 900) {
+    x = -200;
+  }
 
   return (
     <div className="animation-container">

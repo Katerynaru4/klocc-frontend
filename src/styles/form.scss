@@ -1,5 +1,73 @@
-.form {
-  margin: 20px 0;
+.report-form {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    align-items: center;
+  }
+  @include media-breakpoint-down(md) {
+    font-size: 12px;
+  }
+  &__btn {
+    background-color: #60c96d;
+    color: #0c4f22;
+    border: none;
+    padding: 2px 8px;
+
+    &:hover {
+      background-color: #0c4f22;
+      color: #73d57f;
+    }
+    @include media-breakpoint-down(sm) {
+      margin: 10px 0;
+      height: 24px;
+      width: 300px;
+      font-size: 10px;
+      padding: 2px 4px;
+    }
+  }
+  &__input {
+    flex-grow: 1;
+    margin: 0 10px;
+    border: none;
+    background-color: #d9d9e4ed;
+    padding: 2px 8px;
+    outline: none;
+
+    @include media-breakpoint-down(sm) {
+      margin: 10px 0;
+      height: 24px;
+      width: 300px;
+      font-size: 10px;
+      padding: 2px 4px;
+    }
+  }
+  &__select {
+    border: none;
+    outline: none;
+    background-color: #d9d9e4ed;
+    padding: 2px 8px;
+
+    @include media-breakpoint-down(sm) {
+      margin: 0 0 10px 0;
+      height: 24px;
+      width: 300px;
+      font-size: 10px;
+      padding: 2px 4px;
+    }
+  }
 }
 
+option:hover {
+  background-color: rgb(69, 67, 67);
+}
+::-moz-selection { /* Code for Firefox */
+  // color: green;
+    background-color: #9ac39a;
+}
 
+::selection {
+  // color: red;
+    background-color: #9ac39a;
+}

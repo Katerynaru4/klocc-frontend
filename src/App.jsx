@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import classNames from 'classnames';
 import ReportForm from './components/head/ReportForm.jsx';
 import AllRepoInfo from './components/AllRepoInfo.jsx';
-import Loading from './components/Loading.jsx';
+import Loading from './components/head/Loading.jsx';
 import { setReportForm, getReportForm } from './utils/localStorage';
-import ErrorPanel from './components/ErrorPanel.jsx';
-import { getErrorText } from './utils/utils';
+import ErrorPanel from './components/head/ErrorPanel.jsx';
+import getErrorText from './utils/utils';
 import HeadInfo from './components/head/HeadInfo.jsx';
-import { fetchRepoInfo } from './gateway/gateway';
+import fetchRepoInfo from './gateway/gateway';
 import CatTraceAnimation from './components/animations/CatTraceAnimation.jsx';
+import ChangeThemeBtn from './components/ChangeThemeBtn.jsx';
+import { Context } from './AppContext.jsx';
 
 const App = () => {
   const [userName, setUserName] = useState(getReportForm('userName') || '');
@@ -20,6 +23,22 @@ const App = () => {
   const [loadingStatus, setLoadingStatus] = useState('false');
   const [error, setError] = useState(null);
   const [showDescription, setShowDescription] = useState(true);
+
+  const { isLight, toggleTheme } = useContext(Context);
+
+  // Handler method for changing theme.
+  const handleThemeToggle = (event) => {
+    // If the preferred theme is light, but dark is active, or vice-versa.
+    if ((event.matches && !isLight) || (!event.matches && isLight)) {
+      toggleTheme();
+    }
+  };
+  // Detecting preferred system theme on load. First, grab light theme query..
+  const lightThemeMq = window.matchMedia('(prefers-color-scheme: light)');
+  // ..then on load switch to preferred theme..
+  useEffect(() => handleThemeToggle(lightThemeMq), []); // eslint-disable-line
+  // ..and always change if theme changes while page is open (real-time update).
+  lightThemeMq.addEventListener('change', handleThemeToggle);
 
   useEffect(() => {
     if (fetch) {
@@ -41,8 +60,8 @@ const App = () => {
             throw new Error(getErrorText(responseData.message_code));
           }
         })
-        .catch((error) => {
-          setError(error.message);
+        .catch((catchedError) => {
+          setError(catchedError.message);
         })
         .finally(() => {
           setFetch(false);
@@ -51,10 +70,16 @@ const App = () => {
     }
   }, [fetch]);
 
+  const contentCn = classNames({
+    page: true,
+    dark: !isLight,
+  });
+
   return (
-    <>
+    <div className={contentCn}>
       <CatTraceAnimation />
-      <div className="head">
+      <ChangeThemeBtn toggleTheme={toggleTheme} isLight={isLight} />
+      <div className="header">
         <HeadInfo
           showDescription={showDescription}
           setShowDescription={setShowDescription}
@@ -76,9 +101,8 @@ const App = () => {
 
         <ErrorPanel error={error} />
       </div>
-
       <AllRepoInfo data={repoData} />
-    </>
+    </div>
   );
 };
 export default App;

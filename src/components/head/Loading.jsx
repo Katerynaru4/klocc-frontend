@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Loading = ({ status }) => {
-  if (status == 'false') return null;
+  if (status === 'false') return null;
 
-  let loadingText = (
+  const loadingText = (
     <p className="loading__text">Waiting for the server response ...</p>
   );
 
@@ -48,6 +49,10 @@ const Loading = ({ status }) => {
       </div>
     </div>
   );
+};
+
+Loading.propTypes = {
+  status: PropTypes.string.isRequired,
 };
 
 export default Loading;

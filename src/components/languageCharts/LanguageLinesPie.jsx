@@ -1,20 +1,13 @@
 import React from 'react';
 import Plotly from 'plotly.js-basic-dist';
-
 import createPlotlyComponent from 'react-plotly.js/factory';
-
-let layout = {
-  height: 400,
-  width: 500,
-  font: { size: 14 },
-  title: "Line's types",
-  modebar: { bgcolor: 'transparent', color: 'black' },
-};
-
-let config = { displaylogo: false };
+import PropTypes from 'prop-types';
+import config, {
+  languageLinesPieLayout as layout,
+} from '../../utils/charts.configuration';
 
 const LanguageLinesPie = ({ totalLinesData }) => {
-  let pieData = [
+  const pieData = [
     {
       type: 'pie',
       values: [
@@ -34,10 +27,14 @@ const LanguageLinesPie = ({ totalLinesData }) => {
       {React.createElement(Plot, {
         data: pieData,
         layout,
-        config
+        config,
       })}
     </div>
   );
+};
+
+LanguageLinesPie.propTypes = {
+  totalLinesData: PropTypes.object,
 };
 
 export default React.memo(LanguageLinesPie);

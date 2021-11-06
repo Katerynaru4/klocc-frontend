@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ReportForm = ({
   setFetch,
@@ -10,54 +11,62 @@ const ReportForm = ({
   setProvider,
   fetch,
   setRepoData,
-}) => {
-  return (
-    <>
-      <form
-        className="form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setRepoData(null);
-          setFetch(true);
-        }}
+}) => (
+  <>
+    <form
+      className="header__form report-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        setRepoData(null);
+        setFetch(true);
+      }}
+    >
+      <select
+        name="select"
+        defaultValue={provider}
+        onChange={(e) => setProvider(e.target.value)}
+        className="report-form__select"
       >
-        <select
-          name="select"
-          defaultValue={provider}
-          onChange={(e) => setProvider(e.target.value)}
-          className="form__select"
-        >
-          <option value="github">Github</option>
-          <option value="gitlab">Gitlab</option>
-        </select>
+        <option value="github">Github</option>
+        <option value="gitlab">Gitlab</option>
+      </select>
 
-        <input
-          className="form__input"
-          defaultValue={userName}
-          type="text"
-          name="userName"
-          placeholder="Enter username"
-          onChange={(e) => {
-            setUserName(e.target.value);
-          }}
-        />
-        <input
-          className="form__input"
-          defaultValue={repoName}
-          type="text"
-          name="repoName"
-          placeholder="Enter reponame"
-          onChange={(e) => setReponame(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="report-btn"
-          disabled={fetch ? true : false}
-        >
-          Get Report
-        </button>
-      </form>
-    </>
-  );
+      <input
+        className="report-form__input"
+        defaultValue={userName}
+        type="text"
+        name="userName"
+        placeholder="Enter username"
+        onChange={(e) => {
+          setUserName(e.target.value);
+        }}
+      />
+      <input
+        className="report-form__input"
+        defaultValue={repoName}
+        type="text"
+        name="repoName"
+        placeholder="Enter reponame"
+        onChange={(e) => setReponame(e.target.value)}
+      />
+      <button type="submit" className="report-form__btn" disabled={!!fetch}>
+        Get Report
+      </button>
+    </form>
+  </>
+);
+
+ReportForm.propTypes = {
+  status: PropTypes.string,
+  setFetch: PropTypes.func.isRequired,
+  setUserName: PropTypes.func.isRequired,
+  setReponame: PropTypes.func.isRequired,
+  userName: PropTypes.string,
+  repoName: PropTypes.string,
+  provider: PropTypes.string,
+  setProvider: PropTypes.func.isRequired,
+  fetch: PropTypes.bool.isRequired,
+  setRepoData: PropTypes.func.isRequired,
 };
+
 export default ReportForm;

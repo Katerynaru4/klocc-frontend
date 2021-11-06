@@ -1,41 +1,34 @@
 import React from 'react';
 import Plotly from 'plotly.js-basic-dist';
 import createPlotlyComponent from 'react-plotly.js/factory';
+import PropTypes from 'prop-types';
+import config, {
+  headLanPieLayout as layout,
+} from '../../utils/charts.configuration';
 
-let layout = {
-  height: 400,
-  width: 500,
-  font: { size: 14 },
-  title: 'Languages',
-  modebar: { bgcolor: 'transparent', color: 'black' },
-};
-let config = { displaylogo: false };
-
-let generateLanPieData = (languages, totalLines) => {
-  let pieLanData = {};
+const generateLanPieData = (languages, totalLines) => {
+  const pieLanData = {};
   languages.forEach((language) => {
-    let languageLines = Object.values(language.total).reduce(
+    const languageLines = Object.values(language.total).reduce(
       (acc, value) => acc + value,
       0
     );
-    let persentage = (languageLines / totalLines) * 100;
+    const persentage = (languageLines / totalLines) * 100;
     if (persentage >= 3) {
       pieLanData[language.name] = languageLines;
+    } else if (pieLanData.other) {
+      pieLanData.other += languageLines;
     } else {
-      if (pieLanData.other) {
-        pieLanData.other += languageLines;
-      } else {
-        pieLanData.other = languageLines;
-      }
+      pieLanData.other = languageLines;
     }
   });
   return pieLanData;
 };
 
 const HeadLanPie = ({ languages, totalLines }) => {
-  let pieLanData = generateLanPieData(languages, totalLines);
+  const pieLanData = generateLanPieData(languages, totalLines);
 
-  let pieData = [
+  const pieData = [
     {
       values: Object.values(pieLanData),
       labels: Object.keys(pieLanData),
@@ -46,14 +39,19 @@ const HeadLanPie = ({ languages, totalLines }) => {
 
   const Plot = createPlotlyComponent(Plotly);
   return (
-    <>
+    <div className="head-pies__pie">
       {React.createElement(Plot, {
         data: pieData,
         layout,
         config,
       })}
-    </>
+    </div>
   );
+};
+
+HeadLanPie.propTypes = {
+  languages: PropTypes.array,
+  totalLines: PropTypes.number,
 };
 
 export default HeadLanPie;

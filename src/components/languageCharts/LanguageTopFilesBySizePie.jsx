@@ -1,20 +1,10 @@
 import React from 'react';
 import Plotly from 'plotly.js-basic-dist';
-
 import createPlotlyComponent from 'react-plotly.js/factory';
-
-let layout = {
-  height: 400,
-  width: 550,
-  font: { size: 14 },
-  title: 'Largest files',
-  legend: {
-    font: { size: 13 },
-  },
-  modebar: { bgcolor: 'transparent', color: 'black' },
-};
-
-let config = { displaylogo: false };
+import PropTypes from 'prop-types';
+import config, {
+  languageTopFilesBySizePieLayout as layout,
+} from '../../utils/charts.configuration';
 
 const LanguageTopFilesBySizePie = ({ filesData }) => {
   let labels = filesData.map((file) => file.name);
@@ -28,7 +18,7 @@ const LanguageTopFilesBySizePie = ({ filesData }) => {
       .concat(values.slice(10).reduce((acc, value) => acc + value, 0));
   }
 
-  let pieData = [
+  const pieData = [
     {
       type: 'pie',
       values,
@@ -48,6 +38,10 @@ const LanguageTopFilesBySizePie = ({ filesData }) => {
       })}
     </div>
   );
+};
+
+LanguageTopFilesBySizePie.propTypes = {
+  filesData: PropTypes.array,
 };
 
 export default React.memo(LanguageTopFilesBySizePie);

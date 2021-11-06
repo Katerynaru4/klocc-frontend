@@ -1,18 +1,13 @@
 import React from 'react';
 import Plotly from 'plotly.js-basic-dist';
 import createPlotlyComponent from 'react-plotly.js/factory';
-
-let config = { displaylogo: false };
-
-let layout = {
-  height: 400,
-  width: 500,
-  font: { size: 14 },
-  modebar: { bgcolor: 'transparent', color: 'black' },
-};
+import PropTypes from 'prop-types';
+import config, {
+  headTotalLinesPieLayout as layout,
+} from '../../utils/charts.configuration';
 
 const HeadTotalLinesPie = ({ data }) => {
-  let pieData = [
+  const pieData = [
     {
       values: [data.total.code, data.total.comments, data.total.blanks],
       labels: [`Code`, `Comments `, `Blanks `],
@@ -20,7 +15,7 @@ const HeadTotalLinesPie = ({ data }) => {
       textfont: { size: 9 },
     },
   ];
-  let totalLines = Object.values(data.total).reduce(
+  const totalLines = Object.values(data.total).reduce(
     (acc, value) => acc + value,
     0
   );
@@ -30,14 +25,18 @@ const HeadTotalLinesPie = ({ data }) => {
   const Plot = createPlotlyComponent(Plotly);
 
   return (
-    <>
+    <div className="head-pies__pie">
       {React.createElement(Plot, {
         data: pieData,
         layout,
         config,
       })}
-    </>
+    </div>
   );
+};
+
+HeadTotalLinesPie.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default HeadTotalLinesPie;

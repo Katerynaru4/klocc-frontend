@@ -6,4 +6,6 @@ const ErrorText = {
   err_counter_failed: 'Report maker failed',
 };
 
-export const getErrorText = (error) => ErrorText[error];
+const getErrorText = (error) => ErrorText[error];
+
+export default getErrorText;

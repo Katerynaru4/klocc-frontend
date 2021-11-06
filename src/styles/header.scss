@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 10px 0;
+  z-index: 1;
+  &__title {
+    margin: 0;
+    cursor: pointer;
+    font-size: 42px;
+
+    @include media-breakpoint-down(md) {
+      font-size: 6vw;
+    }
+  }
+  &__description {
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    padding: 0 10px;
+  }
+  &__description-text {
+    margin: 0;
+    display: block;
+    font-size: 24px;
+    @include media-breakpoint-down(md) {
+      font-size: 3vw;
+    }
+  }
+  &__form {
+    margin: 20px 0;
+  }
+}
+
+.openDesc {
+  max-height: 300px;
+  transition: max-height 1s ease-in;
+}
+.hiddenDesc {
+  max-height: 0;
+    transition: max-height 1s ease-out;
+}

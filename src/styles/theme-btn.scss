@@ -1,0 +1,68 @@
+.theme-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  @include media-breakpoint-down(md) {
+    font-size: 10px;
+  }
+  &__switch {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 24px;
+    line-height: 24px;
+    display: flex;
+    justify-content: space-between;
+    & input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+  }
+  &__text {
+    padding: 4px;
+    font-size: 16px;
+    line-height: 18px;
+  }
+  &__checkbox {
+  }
+  &__slider {
+    position: relative;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #9ac39a;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    width: 46px;
+    &:before {
+      position: absolute;
+      content: '';
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: green;
+      -webkit-transition: 0.4s;
+      transition: transform 0.4s;
+      border-radius: 50%;
+    }
+  }
+  &__round {
+  }
+}
+
+input:checked + .theme-btn__slider.theme-btn__round:before {
+  transform: translateX(20px);
+}
+
+.theme-btn__slider.theme-btn__round {
+  border-radius: 34px;
+}
+
+.theme-btn__slider.theme-btn__round:before {
+  border-radius: 50%;
+}

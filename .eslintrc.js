@@ -23,7 +23,9 @@ module.exports = {
     allowImportExportEverywhere: true,
   },
   plugins: ['react'],
-  rules: {},
+  rules: {
+    allowForLoopAfterthoughts: 0,
+  },
   settings: {
     react: {
       version: 'detect',

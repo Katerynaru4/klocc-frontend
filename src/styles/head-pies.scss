@@ -1,0 +1,9 @@
+.head-pies {
+  display: flex;
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+  }
+
+  &__pie {
+  }
+}

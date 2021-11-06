@@ -1,39 +1,44 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import LanguageFilesBar from './languageCharts/LanguageFilesBar.jsx';
 import LanguageLinesPie from './languageCharts/LanguageLinesPie.jsx';
 import LanguageTopFilesBySizePie from './languageCharts/LanguageTopFilesBySizePie.jsx';
-import classNames from 'classnames';
 
 const RepoInfoTableRow = ({ language, totalLines }) => {
   const [languageInfoOpen, setLanguageInfoOpen] = useState([]);
 
-  let languageLines = Object.values(language.total).reduce(
+  const languageLines = Object.values(language.total).reduce(
     (acc, value) => acc + value,
     0
   );
 
-  let languagePercentage = ((languageLines / totalLines) * 100).toFixed(2);
+  const languagePercentage = ((languageLines / totalLines) * 100).toFixed(2);
 
   const onToggleLanguage = (lan) => {
     if (languageLines === 0) return;
-    languageInfoOpen.includes(lan)
-      ? setLanguageInfoOpen(
-          [...languageInfoOpen].filter((openLanInfo) => openLanInfo !== lan)
-        )
-      : setLanguageInfoOpen(languageInfoOpen.concat(lan));
+    if (languageInfoOpen.includes(lan)) {
+      setLanguageInfoOpen(
+        [...languageInfoOpen].filter((openLanInfo) => openLanInfo !== lan)
+      );
+    } else {
+      setLanguageInfoOpen(languageInfoOpen.concat(lan));
+    }
   };
-  let rowCn = classNames({
-    active_row: true,
+
+  const rowCn = classNames({
+    'charts__row-container': true,
     active: languageLines !== 0,
   });
-  let title =
-    languageLines === 7040
-      ? null
-      : languageInfoOpen.includes(language.name)
-      ? 'Hide details'
-      : 'Show details';
 
-  let rowChartsCn = classNames({
+  let title;
+  if (languageInfoOpen.includes(language.name)) {
+    title = languageLines === 0 ? null : 'Hide details';
+  } else {
+    title = 'Show details';
+  }
+
+  const rowChartsCn = classNames({
     charts__container: true,
     hideRow: !languageInfoOpen.includes(language.name),
     showRow: languageInfoOpen.includes(language.name),
@@ -47,16 +52,16 @@ const RepoInfoTableRow = ({ language, totalLines }) => {
         className={rowCn}
         title={title}
       >
-        <td>{language.name}</td>
-        <td>{language.files.length}</td>
-        <td>{language.total.code}</td>
-        <td>{language.total.comments}</td>
-        <td>{language.total.blanks}</td>
-        <td>{languageLines}</td>
-        <td>{languagePercentage}</td>
+        <td className="charts__language-info">{language.name}</td>
+        <td className="charts__language-info">{language.files.length}</td>
+        <td className="charts__language-info">{language.total.code}</td>
+        <td className="charts__language-info">{language.total.comments}</td>
+        <td className="charts__language-info">{language.total.blanks}</td>
+        <td className="charts__language-info">{languageLines}</td>
+        <td className="charts__language-info">{languagePercentage}</td>
       </tr>
       <tr className="charts__row">
-        <td colSpan={7}>
+        <td colSpan={7} className="charts__wrapper">
           <div className={rowChartsCn}>
             <div className="charts__pies">
               <LanguageLinesPie totalLinesData={language.total} />
@@ -73,6 +78,11 @@ const RepoInfoTableRow = ({ language, totalLines }) => {
       </tr>
     </>
   );
+};
+
+RepoInfoTableRow.propTypes = {
+  language: PropTypes.object,
+  totalLines: PropTypes.number,
 };
 
 export default RepoInfoTableRow;
