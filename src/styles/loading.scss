@@ -16,6 +16,10 @@
     position: absolute;
     z-index: 1;
     bottom: 15px;
+    
+    @include media-breakpoint-down(xs) {
+      font-size: 12px;
+    }
   }
   &__wave {
     background: #c4d4ce;

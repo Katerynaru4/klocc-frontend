@@ -62,12 +62,16 @@
 option:hover {
   background-color: rgb(69, 67, 67);
 }
-::-moz-selection { /* Code for Firefox */
-  // color: green;
-    background-color: #9ac39a;
-}
 
-::selection {
-  // color: red;
-    background-color: #9ac39a;
+.report-btn {
+  background-color: #73d57f;
+  color: #004116;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 6px 12px;
+  border: none;
+  outline: none;
+  &:disabled {
+    opacity: 0.5;
+  }
 }

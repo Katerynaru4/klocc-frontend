@@ -9,6 +9,7 @@ import getErrorText from './utils/utils';
 import HeadInfo from './components/head/HeadInfo.jsx';
 import fetchRepoInfo from './gateway/gateway';
 import CatTraceAnimation from './components/animations/CatTraceAnimation.jsx';
+import Footer from './components/Footer.jsx';
 import ChangeThemeBtn from './components/ChangeThemeBtn.jsx';
 import { Context } from './AppContext.jsx';
 
@@ -70,38 +71,41 @@ const App = () => {
     }
   }, [fetch]);
 
-  const contentCn = classNames({
-    page: true,
+  const pageCn = classNames({
     dark: !isLight,
+    wrapper: true,
   });
 
   return (
-    <div className={contentCn}>
-      <CatTraceAnimation />
-      <ChangeThemeBtn toggleTheme={toggleTheme} isLight={isLight} />
-      <div className="header">
-        <HeadInfo
-          showDescription={showDescription}
-          setShowDescription={setShowDescription}
-        />
+    <div className={pageCn}>
+      <div className="page">
+        <CatTraceAnimation />
+        <ChangeThemeBtn toggleTheme={toggleTheme} isLight={isLight} />
+        <div className="header">
+          <HeadInfo
+            showDescription={showDescription}
+            setShowDescription={setShowDescription}
+          />
 
-        <ReportForm
-          setFetch={setFetch}
-          fetch={fetch}
-          setUserName={setUserName}
-          setReponame={setReponame}
-          userName={userName}
-          repoName={repoName}
-          provider={provider}
-          setProvider={setProvider}
-          setRepoData={setRepoData}
-        />
+          <ReportForm
+            setFetch={setFetch}
+            fetch={fetch}
+            setUserName={setUserName}
+            setReponame={setReponame}
+            userName={userName}
+            repoName={repoName}
+            provider={provider}
+            setProvider={setProvider}
+            setRepoData={setRepoData}
+          />
 
-        <Loading status={loadingStatus} />
+          <Loading status={loadingStatus} />
 
-        <ErrorPanel error={error} />
+          <ErrorPanel error={error} />
+        </div>
+        <AllRepoInfo data={repoData} />
       </div>
-      <AllRepoInfo data={repoData} />
+      <Footer />
     </div>
   );
 };

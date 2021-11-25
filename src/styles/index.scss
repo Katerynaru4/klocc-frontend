@@ -9,10 +9,40 @@
 @import './head-pies.scss';
 @import './table.scss';
 @import './theme-btn.scss';
+@import './footer.scss';
 
 * {
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+.page {
+  padding-bottom: 20px;
+}
+
+.dark {
+  & .page {
+    background: rgb(36, 45, 60);
+    color: #39b754;
+  }
+
+  & .footer {
+    background-color: #357527;
+    color: #242d3c;
+    & a {
+      color: #242d3c;
+    }
+  }
 }
 
 .page {
@@ -24,13 +54,6 @@
   align-items: center;
   padding: 10px;
   position: relative;
-  &.dark {
-    background: rgb(36, 45, 60);
-    color: #39b754;
-  }
-}
-
-#root {
 }
 
 .main-svg {
@@ -39,17 +62,4 @@
 
 .bg {
   fill: transparent !important;
-}
-
-.report-btn {
-  background-color: #73d57f;
-  color: #004116;
-  text-transform: uppercase;
-  border-radius: 4px;
-  padding: 6px 12px;
-  border: none;
-  outline: none;
-  &:disabled {
-    opacity: 0.5;
-  }
 }

@@ -10,6 +10,11 @@
 
   &__row-container {
     border-top: 1px solid #c5cfcbfa;
+
+    @include media-breakpoint-down(sm) {
+      line-height: 30px;
+    }
+
     &:hover {
       background-color: #c5cfcbfa;
     }
@@ -32,7 +37,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // position: absolute;
     top: 0;
     left: 0;
     overflow: hidden;
@@ -44,8 +48,7 @@
     }
     &.showRow {
       overflow-x: auto;
-      // position: relative;
-      max-height: 840px;
+      max-height: 1300px;
       transition: max-height 1s ease-in;
     }
   }
@@ -110,6 +113,7 @@ thead th:nth-child(6) {
 }
 thead th:nth-child(7) {
   width: 10%;
+
   @include media-breakpoint-down(sm) {
     white-space: normal;
   }
@@ -139,10 +143,10 @@ td {
 .charts__pies {
   display: flex;
   padding-top: 20px;
-  @media (max-width: 600px) {
-    flex-direction: column;
-      padding-top: 10px;
 
+  @media (max-width: 800px) {
+    flex-direction: column;
+    padding-top: 10px;
   }
 }
 .language__pie {
