@@ -38,7 +38,7 @@ const ReportForm = ({
         name="userName"
         placeholder="Enter username"
         onChange={(e) => {
-          setUserName(e.target.value);
+          setUserName(e.target.value.trim());
         }}
       />
       <input
@@ -47,7 +47,7 @@ const ReportForm = ({
         type="text"
         name="repoName"
         placeholder="Enter reponame"
-        onChange={(e) => setReponame(e.target.value)}
+        onChange={(e) => setReponame(e.target.value.trim())}
       />
       <button type="submit" className="report-form__btn" disabled={!!fetch}>
         Get Report
